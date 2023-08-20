@@ -1,0 +1,21 @@
+Select count(*) as AnzahlMountainbikes from Fahrraeder where fahrradart = "Mountainbike";  
+
+  
+
+Select max(Anschaffungswert) as HöchsterAnschaffungswert from Fahrraeder; 
+
+  
+
+Select truncate(avg(tagesmietpreis),2) from fahrraeder; 
+
+  
+
+Select sum(anschaffungswert) from Fahrraeder; 
+
+  
+
+Select fahrradnr,Fahrradart,truncate(tagesmietpreis*7*0.7,0) as Wochenmietpreis from Fahrraeder where Fahrradart = "Rennrad" or Fahrradart = "Mountainbike"; 
+
+  
+
+Select fahrradnr,Fahrradart,Kaufdatum,concat(year(now())-year(Kaufdatum)) as Jahrealt,year(kaufdatum) as Berechnungsjahr from fahrraeder; 
