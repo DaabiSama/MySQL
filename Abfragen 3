@@ -1,0 +1,150 @@
+Select fahrradnr, modelle.bezeichnung, fahrraeder.anschaffungswert, modelle.tagesmietpreis from fahrraeder inner join modelle using(modellnr) order by fahrradnr;  
+
+
+Select fahrradnr, modelle.bezeichnung, herstellername, tagesmietpreis from fahrraeder inner join modelle using(modellnr) inner join hersteller using(herstellernr) order by tagesmietpreis desc;  
+
+
+Select fahrradnr, modelle.bezeichnung, herstellername from fahrraeder inner join modelle using(modellnr) inner join hersteller using(herstellernr) where herstellername = "Scott" order by tagesmietpreis desc;  
+
+  
+Select modelle.bezeichnung, herstellernr, herstellername, tagesmietpreis from modelle inner join hersteller using(herstellernr) where herstellername = "Scott" and tagesmietpreis > 12;  
+
+
+Select max(tagesmietpreis) as max_scott from modelle inner join hersteller using(herstellernr) where herstellername = "Scott";  
+
+
+Select count(modellnr) as Anzahl_Fahrräder_Scott from modelle inner join hersteller using(herstellernr) where herstellername = "Scott";  
+
+
+Select fahrradnr,m.bezeichnung,h.herstallername, fa.bezeichnung from fahrraeder inner join modelle m using (modellnr) inner join hersteller h using (herstellernr) inner join fahrradarten fa using (artnr)  
+
+
+Where fa.bezeichnung = 'Kinderrad';  
+
+
+Select count(f.fahrradnr) as anzahl_kinderräder from fahraeder f inner join modelle m using (modellnr)  
+
+  
+
+inner join fahrradarten fa using(artnr)  
+
+  
+
+Where fa.bezeichnung = 'Kinderrad'  
+
+  
+
+
+select f.fahrradnr, m.bezeichnung as Modelle, fa.bezeichnung as Fahrradart  
+
+  
+
+from fahrraeder f  
+  
+
+join modelle m using(modellnr)  
+  
+
+join fahrradarten fa using(artnr)  
+
+
+where fa.bezeichnung != 'Kinderrad' and fa.bezeichnung != 'Jugendrad';  
+
+  
+
+select truncate(avg(m.tagesmietpreis), 2) as Durchschnittspreis_Kinderräder  
+
+
+from fahrraeder f  
+
+  
+
+join modelle m using(modellnr)  
+
+  
+
+join fahrradarten fa using(artnr)  
+
+  
+
+where fa.bezeichnung = 'Kinderrad';  
+
+  
+
+select m.bezeichnung, m.tagesmietpreis  
+
+  
+
+from fahrraeder f  
+
+  
+
+join modelle m using(modellnr)  
+
+  
+
+join fahrradarten fa using(artnr)  
+
+  
+
+where fa.bezeichnung = 'Kinderrad'  
+
+  
+
+order by tagesmietpreis asc  
+
+  
+
+limit 1;  
+
+  
+
+   
+
+  
+
+select fa. bezeichnung, count(f.fahrradnr) as Anzahl  
+
+  
+
+from fahrraeder f  
+
+  
+
+join modelle m using(modellnr)  
+
+
+join fahrradarten fa using(artnr)  
+
+group by fa.bezeichnung  
+
+order by fa.bezeichnung  
+
+  
+  
+
+select fa. bezeichnung, count(f.fahrradnr) as Anzahl  
+
+  
+
+from fahrraeder f  
+
+  
+
+join modelle m using(modellnr)  
+
+  
+
+join fahrradarten fa using(artnr)  
+
+  
+
+group by fa.bezeichnung  
+
+  
+
+having Anzahl > 3  
+
+  
+
+order by fa.bezeichnung; 
