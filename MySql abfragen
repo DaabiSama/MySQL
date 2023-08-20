@@ -1,0 +1,51 @@
+Select * from Fahrraeder where fahrradart = "Mountainbike"; 
+
+  
+
+Select * from Fahrraeder where fahrradart = "Mountainbike" order by kaufdatum desc; 
+
+  
+
+Select fahrradnr,tagesmietpreis from fahrraeder where Tagesmietpreis > 20; 
+
+  
+
+Select * from fahrraeder where kaufdatum < "2015-1-1"; 
+
+  
+
+Select * from Fahrraeder where kaufdatum between "2015-1-1" and "2015-12-31"; 
+
+  
+
+Select * from Fahrraeder where kaufdatum = Null; 
+
+  
+
+Select * from Fahrraeder where Fahrradart like "T%"; 
+
+  
+
+Select * from fahrraeder where rahmennr like "%98%"; 
+
+  
+
+Select * from Fahrraeder where Anschaffungswert > 400 and tagesmietpreis < 17; 
+
+  
+
+Select Fahrradnr, Tagesmietpreis from fahrraeder where Tagesmietpreis >  17 or tagesmietpreis < 13; 
+
+  
+
+Select Fahrradnr, Tagesmietpreis, Fahrradart from fahrraeder where  
+
+tagesmietpreis > 17 and Fahrradart = "Mountainbike" 
+
+or  
+
+tagesmietpreis < 13 and Fahrradart = "Mountainbike"; 
+
+  
+
+select * from fahrraeder; 
