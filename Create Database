@@ -1,0 +1,175 @@
+drop database if exists KrankenhausDB; 
+
+Create database if not exists KrankenhausDB; 
+
+use Krankenhausdb; 
+
+  
+
+Create table Untersuchungstyp( 
+
+Untersuchungstyp_ID int(11) Primary key, 
+
+UT_Bezeichnung  varchar(50), 
+
+UT_kosten decimal(6,2) 
+
+); 
+
+  
+
+Create table Krankenkasse( 
+
+Krankenkasse_ID int(11) Primary key, 
+
+KR_Bezeichnung Varchar(100), 
+
+KR_Weitere_felder varchar(20), 
+
+KR_Ansprechspartner varchar(50) 
+
+); 
+
+  
+
+Create table Station ( 
+
+Station_ID int(11) Primary key, 
+
+ST_Bezeichnung enum("Kardiologie","Onkologie","Gynäkologie","Neurologie"), 
+
+ST_Chef int(11) 
+
+); 
+
+  
+
+Create table Zimmer( 
+
+Zimmer_ID int(11) Primary key, 
+
+Station_ID int(11), 
+
+Zi_Nr char(5), 
+
+Zi_Bettanzahl int(11), 
+
+check (Zi_Bettanzahl > 0 and Zi_Bettanzahl < 4), 
+
+Foreign key (Station_ID) references Station(Station_ID) 
+
+); 
+
+  
+
+Create table Patient ( 
+
+Patient_ID int(11) primary key, 
+
+Krankenkasse_ID int(11), 
+
+PA_Vorname varchar(50), 
+
+PA_nachname varchar(50), 
+
+PA_WEITERE_FELDER varchar(20), 
+
+PA_Hausarzt varchar(40), 
+
+foreign key (Krankenkasse_ID) references Krankenkasse(Krankenkasse_ID) 
+
+); 
+
+  
+
+Create table Zimmerbelegung( 
+
+Zimmerbelegung_ID int(11) Primary key, 
+
+Patient_ID int(11), 
+
+Zimmer_ID int(11), 
+
+Zi_Aufnahme date, 
+
+Zi_Entlassen date, 
+
+Foreign key (Zimmer_ID) references Zimmer(zimmer_id), 
+
+Foreign key (patient_ID) references Patient(Patient_ID), 
+
+Check (Zi_aufnahme < Zi_entlassen) 
+
+); 
+
+  
+
+Create table Untersuchungen( 
+
+Untersuchung_id int(11) Primary key, 
+
+Patient_id int(11), 
+
+Untersuchungstyp_ID int(11), 
+
+U_datum date, 
+
+U_ergebnis varchar (200), 
+
+U_Chef char(5), 
+
+Foreign key (patient_id) references Patient(patient_id), 
+
+Foreign key (Untersuchungstyp_ID) references Untersuchungstyp(Untersuchungstyp_ID) 
+
+); 
+
+  
+
+  
+
+insert into Station values(1,"Neurologie",1); 
+
+insert into Zimmer values (1,1,1,1); 
+
+insert into Krankenkasse values (1,"Kaanindustrie","Keine ahnung yauw","Mathias"); 
+
+insert into patient values (1,1,"Mathias","Scheer","keine ahnung2","Frederik"); 
+
+insert into untersuchungstyp Values(1,"Aids",5000.00); 
+
+insert into Untersuchungen values (1,1,1,"2020-09-11","2020-09-20","tabea"); 
+
+  
+
+Select patient_ID,PA_Vorname,Pa_nachname,Zimmer_ID,Station_id from patient 
+
+inner join Zimmerbelegung using(Patient_ID) 
+
+inner join zimmer using(Zimmer_id) 
+
+inner join station using (Station_id); 
+
+  
+
+Select count(KR_bezeichnung) from patient 
+
+inner join Krankenkasse using (Krankenkasse_ID) 
+
+inner join Zimmerbelegung using (Patient_id) 
+
+inner join zimmer using (Zimmer_ID) 
+
+inner join station using (station_id) 
+
+group by(patient_ID) having KR_Bezeichnung = "AOK" and ST_bezeichnung = "Neurologie"; 
+
+  
+
+Select Patient_ID,Zimmer_ID from Patient  
+
+inner join Zimmerbelegung using(patient_id) 
+
+left join Zimmer using (Zimmer_ID); 
+
+ 
